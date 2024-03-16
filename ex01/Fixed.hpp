@@ -5,13 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 11:01:05 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/03/16 21:58:06 by pbalbino         ###   ########.fr       */
+/*   Created: 2024/03/16 20:59:43 by pbalbino          #+#    #+#             */
+/*   Updated: 2024/03/16 21:57:28 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
+
+#include <iostream>
 
 class Fixed {
 	private:
@@ -20,18 +22,22 @@ class Fixed {
 
 	public:
 	Fixed (); // A default constructor that initializes the fixed-point number value to 0.
-
+	Fixed (const int int_nb); // A constructor that takes a constant integer as a parameter
+	Fixed (const float float_nb); // A constructor that takes a constant floating-point number as a parameter.
 
 	Fixed (const Fixed &fixed); // A copy constructor.
 
 	Fixed & operator = (const Fixed &fixed); // A copy assignment operator overload.
 
-	~Fixed () {} // A destructor.
+	~Fixed (); // A destructor.
 
 	int getRawBits(void) const; // returns the raw value of the fixed-point value.
 
-	void setRawBits(int const raw); // sets the raw value of the fixed-point number.
+	float toFloat(void) const;
 
+	int toInt(void) const;
 };
+
+std::ostream &operator<<(std::ostream &outstream, const Fixed &obj);
 
 #endif
