@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:59:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/03/16 21:57:53 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/03/16 22:00:27 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ Fixed::~Fixed() // A destructor.
 
 int Fixed::getRawBits(void) const // returns the raw value of the fixed-point value.
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (value);
 }
 
