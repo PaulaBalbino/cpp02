@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:59:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/03/17 11:48:54 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:08:50 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,19 @@ Fixed &Fixed::operator=(const Fixed &fixed)
 	return (*this);
 }
 
-Fixed::~Fixed()
-{
-
-}
+Fixed::~Fixed() {}
 
 int Fixed::getRawBits(void) const
 {
 	return (value);
 }
 
-Fixed::Fixed (const int int_nb)
+Fixed::Fixed(const int int_nb)
 {
 	value = int_nb << store;
 }
 
-Fixed::Fixed (const float float_nb)
+Fixed::Fixed(const float float_nb)
 {
 	value = roundf(float_nb * (1 << store));
 }
@@ -67,86 +64,128 @@ int Fixed::toInt(void) const
 	return (temp);
 }
 
-	// Operators: +, -, *, and /
-	Fixed Fixed::operator+(const Fixed& sum){
-	//creates a new instance of the class (Fixed) invoking default constructor
-		Fixed res;
-		res.value = this->value + sum.value;
-		return (res);
-	}
-	Fixed Fixed::operator-(const Fixed& sub){
-		Fixed res;
-		res.value = this->value - sub.value;
-		return (res);
-	}
-	Fixed Fixed::operator*(const Fixed& times){
-		Fixed res;
-		res.value = this->value * times.value;
-		return (res);
-	}
-	Fixed Fixed::operator/(const Fixed& div){
-		Fixed res;
-		res.value = this->value / div.value;
-		return (res);
-	}
+// Operators: +, -, *, and /
+Fixed Fixed::operator+(const Fixed &sum)
+{
+	// creates a new instance of the class (Fixed) invoking default constructor
+	Fixed res;
+	res.value = this->value + sum.value;
+	return (res);
+}
+Fixed Fixed::operator-(const Fixed &sub)
+{
+	Fixed res;
+	res.value = this->value - sub.value;
+	return (res);
+}
+Fixed Fixed::operator*(const Fixed &times)
+{
+	Fixed res;
+	res.value = this->value * times.toInt();
+	return (res);
+}
+Fixed Fixed::operator/(const Fixed &div)
+{
+	Fixed res;
+	res.value = this->value / div.toInt();
+	return (res);
+}
 
-	// Comparison operators: >, <, >=, <=, == and !=
-	bool Fixed::operator>(const Fixed& obj){
-		if (value > obj.value)
-			return (true);
-		return (false);
-	}
-	bool Fixed::operator<(const Fixed& obj){
-		if (value < obj.value)
-			return (true);
-		return (false);
-	}
-	bool Fixed::operator>=(const Fixed& obj){
-		if (value >= obj.value)
-			return (true);
-		return (false);
-	}
-	bool Fixed::operator<=(const Fixed& obj){
-		if (value <= obj.value)
-			return (true);
-		return (false);
-	}
-	bool Fixed::operator==(const Fixed& obj){
-		if (value == obj.value)
-			return (true);
-		return (false);
-	}
-	bool Fixed::operator!=(const Fixed& obj){
-		if (value != obj.value)
-			return (true);
-		return (false);
-	}
+// Comparison operators: >, <, >=, <=, == and !=
+bool Fixed::operator>(const Fixed &obj)
+{
+	if (value > obj.value)
+		return (true);
+	return (false);
+}
+bool Fixed::operator<(const Fixed &obj)
+{
+	if (value < obj.value)
+		return (true);
+	return (false);
+}
+bool Fixed::operator>=(const Fixed &obj)
+{
+	if (value >= obj.value)
+		return (true);
+	return (false);
+}
+bool Fixed::operator<=(const Fixed &obj)
+{
+	if (value <= obj.value)
+		return (true);
+	return (false);
+}
+bool Fixed::operator==(const Fixed &obj)
+{
+	if (value == obj.value)
+		return (true);
+	return (false);
+}
+bool Fixed::operator!=(const Fixed &obj)
+{
+	if (value != obj.value)
+		return (true);
+	return (false);
+}
 
-	// Increment/Decrement
-	Fixed& Fixed::operator++(void) //pre increment, return the same obj (got by reference)
-	{
-		value++;
-		return (*this);
-	}
+// Increment/Decrement
+Fixed &Fixed::operator++(void) // pre increment, return the same obj (got by reference)
+{
+	value++;
+	return (*this);
+}
 
-	Fixed& Fixed::operator--(void)
-	{
-		value--;
-		return (*this);
-	}
+Fixed &Fixed::operator--(void)
+{
+	value--;
+	return (*this);
+}
 
-	Fixed Fixed::operator++(int) //pos increment, returned value should be a copy of the object before decrement
-	{
-		Fixed temp;
-		temp.value = value;
-		value++;
-		return (temp);
-	}
+Fixed Fixed::operator++(int) // pos increment, returned value should be a copy of the object before decrement
+{
+	Fixed temp;
+	temp.value = value;
+	value++;
+	return (temp);
+}
 
-	Fixed Fixed::operator--(int)
-	{
-		Fixed temp;
-		temp.value = value;
-		value--;
-		return (temp);
-	}
+Fixed Fixed::operator--(int)
+{
+	Fixed temp;
+	temp.value = value;
+	value--;
+	return (temp);
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+{
+	if (a.getRawBits() < b.getRawBits())
+		return (a);
+	else
+		return (b);
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+{
+	if (a.getRawBits() > b.getRawBits())
+		return (a);
+	else
+		return (b);
+}

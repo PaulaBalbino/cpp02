@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:59:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/03/16 22:00:27 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:36:45 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,44 @@ std::ostream &operator<<(std::ostream &outstream, const Fixed &obj)
 	return (outstream);
 }
 
-Fixed::Fixed() // A default constructor that initializes the fixed-point number value to 0.
+// A default constructor that initializes the fixed-point number value to 0.
+Fixed::Fixed()
 {
 	value = 0;
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &fixed) // A copy constructor.
+Fixed::Fixed(const Fixed &fixed)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = fixed;
 }
 
-Fixed &Fixed::operator=(const Fixed &fixed) // A copy assignment operator overload.
+Fixed &Fixed::operator=(const Fixed &fixed)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	this->value = fixed.getRawBits();
 	return (*this);
 }
 
-Fixed::~Fixed() // A destructor.
+Fixed::~Fixed()
 {
 	std::cout << "Destructor called" << std::endl;
 }
 
-int Fixed::getRawBits(void) const // returns the raw value of the fixed-point value.
+// returns the raw value of the fixed-point value.
+int Fixed::getRawBits(void) const
 {
 	return (value);
 }
 
-Fixed::Fixed (const int int_nb)
+Fixed::Fixed(const int int_nb)
 {
 	value = int_nb << store;
 	std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed (const float float_nb)
+Fixed::Fixed(const float float_nb)
 {
 	value = roundf(float_nb * (1 << store));
 	std::cout << "Float constructor called" << std::endl;
@@ -72,3 +74,4 @@ int Fixed::toInt(void) const
 	return (temp);
 }
 
+// std::ostream: Represents an output stream, such as std::cout.
